@@ -1,4 +1,19 @@
-<html>
-    <p>Hi there!</p>
-    <p>It works!</p>
-</html>
+{% extends 'blog/base.html' %}
+
+{% block content %}
+          <div class="content container">
+                    <div class="row">
+                              <div class="col-md-8">
+                                  {% for p in publi %}
+                                    <div class="post">
+                                          <div class="date">
+                                              {{p.fecha_publicacion}}
+                                          </div>
+                                          <h1><a href="{% url 'postear' pk=p.pk %}">{{ p.titulo}}</a></h1>
+                                          <p>{{ p.texto|linebreaksbr }}</p>
+                                    </div>
+                                {% endfor %}
+                              </div>
+                    </div>
+          </div>
+{% endblock content %}

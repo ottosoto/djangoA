@@ -14,5 +14,5 @@ class publicar(models.Model):
         self.fecha_publicacion = timezone.now()
         self.save()
 
-    def __str__(self):
-        return self.title
+#    def __str__(self):
+#        return self.titulo()
