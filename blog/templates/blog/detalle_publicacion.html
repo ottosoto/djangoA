@@ -2,11 +2,14 @@
 
 {% block content %}
       <div class="post">
-          {% if post.fecha_publica %}
+          {% if p.fecha_publicacion %}
             <div class="Date">
               {{p.fecha_publicacion}}
             </div>
+          {% else %}
+            <a class="btn btn-default" href="{% url 'postear_publicacion' pk=p.pk %}">Publicar</a>
           {% endif %}
+            <a class="btn btn-default" href="{% url 'editar_publicacion' pk=p.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
       <h1>{{ p.titulo }}</h1>
   <p>{{ p.texto|linebreaksbr }}</p>
 </div>

@@ -1,0 +1,11 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    {% for p in f %}
+        <div class="post">
+            <p class="date">Creado: {{ p.fecha_creacion|date:'d-m-Y' }}</p>
+            <h1><a href="{% url 'postear' pk=p.pk %}">{{ p.titulo }}</a></h1>
+            <p>{{ p.texto|truncatechars:200 }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
