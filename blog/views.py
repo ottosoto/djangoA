@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.utils import timezone
 
+from django.utils import timezone
 from .forms import PostearForm
 from .models import publicar
 
@@ -47,3 +47,8 @@ def postear_publicacion(request, pk):
         p = get_object_or_404(publicar, pk=pk)
         p.publish()
         return redirect('postear', pk=p.pk)
+
+def remover_publicacion(request, pk):
+        p = get_object_or_404(publicar, pk=pk)
+        p.delete()
+        return PostearForm()
