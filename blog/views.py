@@ -1,5 +1,5 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
-
 from django.utils import timezone
 from .forms import PostearForm
 from .models import publicar
@@ -12,6 +12,7 @@ def detalle_publicacion(request,pk):
     p = get_object_or_404(publicar, pk=pk)
     return render(request,'blog/detalle_publicacion.html',{'p':p})
 
+@login_required
 def nueva_publicacion(request):
     if request.method == "POST":
         f = PostearForm(request.POST)
@@ -25,6 +26,7 @@ def nueva_publicacion(request):
         f = PostearForm()
     return render(request, 'blog/nueva_publicacion.html', {'f': f})
 
+@login_required
 def editar_publicacion(request,pk):
     p = get_object_or_404(publicar, pk=pk)
     if request.method == "POST":
@@ -39,16 +41,19 @@ def editar_publicacion(request,pk):
         f = PostearForm(instance=p)
     return render(request, 'blog/nueva_publicacion.html', {'f': f})
 
+@login_required
 def borradores_publicacion(request):
         f = publicar.objects.filter(fecha_publicacion__isnull=True).order_by('fecha_creacion')
         return render(request,'blog/borradores_publicacion.html',{'f':f})
 
+@login_required
 def postear_publicacion(request, pk):
         p = get_object_or_404(publicar, pk=pk)
         p.publish()
         return redirect('postear', pk=p.pk)
 
+@login_required
 def remover_publicacion(request, pk):
         p = get_object_or_404(publicar, pk=pk)
         p.delete()
-        return PostearForm()
+        return redirect('listar_publicacion')
